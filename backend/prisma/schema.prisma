@@ -1,0 +1,126 @@
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String    @map("password_hash")
+  role          Role      @default(TECHNICIAN)
+  fullName      String?   @map("full_name")
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  reportedTickets  Ticket[]  @relation("ReportedTickets")
+  assignedTickets  Ticket[]  @relation("AssignedTickets")
+  comments         Comment[]
+  createdAssets    Asset[]   @relation("AssetCreator") // ✅ ADD THIS
+
+  @@map("users")
+  @@index([email])
+}
+
+model Asset {
+  id              String    @id @default(uuid())
+  name            String
+  assetCode       String    @unique @map("asset_code")
+  serialNumber    String?   @unique @map("serial_number")
+  location        String
+  status          AssetStatus @default(ACTIVE)
+  qrCode          String    @map("qr_code")
+  specifications  Json?     // For storing flexible data like model, specs
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  createdById     String?   @map("created_by")
+  
+  // Relations
+  createdBy       User?     @relation("AssetCreator", fields: [createdById], references: [id])
+  tickets         Ticket[]
+
+  @@map("assets")
+  @@index([status])
+  @@index([location])
+}
+
+model Ticket {
+  id            String    @id @default(uuid())
+  title         String
+  description   String?
+  status        TicketStatus @default(OPEN)
+  priority      Priority  @default(MEDIUM)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  
+  // Foreign keys
+  assetId       String?   @map("asset_id")
+  reportedById  String    @map("reported_by")
+  assignedToId  String?   @map("assigned_to")
+  
+  // Relations
+  asset         Asset?    @relation(fields: [assetId], references: [id])
+  reportedBy    User      @relation("ReportedTickets", fields: [reportedById], references: [id])
+  assignedTo    User?     @relation("AssignedTickets", fields: [assignedToId], references: [id])
+  comments      Comment[]
+
+  @@map("tickets")
+  @@index([status])
+  @@index([priority])
+  @@index([createdAt])
+  @@index([assetId])
+  @@index([assignedToId])
+}
+
+model Comment {
+  id          String   @id @default(uuid())
+  content     String
+  createdAt   DateTime @default(now()) @map("created_at")
+  
+  // Foreign keys
+  ticketId    String   @map("ticket_id")
+  userId      String   @map("user_id")
+  
+  // Relations
+  ticket      Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@map("comments")
+  @@index([ticketId])
+  @@index([createdAt])
+}
+
+// ENUMS for better type safety
+enum Role {
+  ADMIN
+  ENGINEER
+  TECHNICIAN
+}
+
+enum AssetStatus {
+  ACTIVE
+  UNDER_MAINTENANCE
+  DECOMMISSIONED
+  DAMAGED
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
