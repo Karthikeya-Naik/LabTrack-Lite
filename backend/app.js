@@ -9,11 +9,17 @@ import dashboardRoutes from "./routes/dashboard.routes.js";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true
+  })
+);
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("LabTrack Lite API is running 🚀");
+  res.send("LabTrack Lite API is running");
 });
 
 app.use("/api/auth", authRoutes);
