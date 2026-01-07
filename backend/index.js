@@ -1,7 +1,11 @@
 import dotenv from "dotenv";
 import app from "./app.js";
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  const dotenv = await import("dotenv");
+  dotenv.config();
+}
+
 
 const PORT = process.env.PORT || 5000;
 

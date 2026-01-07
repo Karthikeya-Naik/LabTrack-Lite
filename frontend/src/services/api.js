@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api", // backend URL
+  baseURL: "https://labtrack-backend-05i5.onrender.com/api", // backend URL
 });
 
 // Attach JWT automatically
