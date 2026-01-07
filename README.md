@@ -90,4 +90,99 @@ Research labs often lack a centralized system to:
 ---
 
 ## 📁 Project Structure
+```
+labtrack-lite/
+├── frontend/
+│ ├── src/
+│ │ ├── components/
+│ │ ├── pages/
+│ │ ├── services/
+│ │ ├── context/
+│ │ └── hooks/
+│ └── netlify.toml
+│
+├── backend/
+│ ├── controllers/
+│ ├── routes/
+│ ├── middlewares/
+│ ├── prisma/
+│ └── server.js
+│
+└── README.md
+```
+---
 
+---
+
+## 🎤 Demo Flow
+
+Login as Admin
+View dashboard analytics
+Create a user
+Manage assets
+Create & update tickets
+Use chatbot queries
+
+---
+
+## 📌 Future Enhancements
+
+Advanced analytics
+Export reports
+
+---
+
+## 🧩 Clone & Run Locally
+
+Follow these steps to set up **LabTrack Lite** on your local machine.
+
+---
+
+### 🔹 Prerequisites
+
+Make sure you have the following installed:
+
+- **Node.js** (v18 or higher)
+- **Git**
+- **PostgreSQL** (or a **Supabase** account)
+- **npm** (comes with Node.js)
+
+---
+
+### 🔹 Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/<your-username>/labtrack-lite.git
+cd labtrack-lite
+```
+
+### 🔹 Step 2: Backend Setup
+
+```bash
+cd backend
+npm install
+npm run dev
+http://localhost:5000
+```
+
+### 🔹 Step 3: Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm run dev
+http://localhost:5173
+```
+
+### 🔹 Step 4: Login Credentials
+
+```bash
+Email: admin@labtrack.com
+Password: admin123
+```
+
+### 🔹 Step 5: Access the Application
+
+```bash
+http://localhost:5173
+```
