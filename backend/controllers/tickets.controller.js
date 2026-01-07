@@ -1,9 +1,5 @@
 import prisma from "../prisma/client.js";
 
-/**
- * CREATE Ticket
- * Role: Engineer
- */
 export const createTicket = async (req, res) => {
   try {
     const { title, description, assetId, priority } = req.body;
@@ -25,25 +21,16 @@ export const createTicket = async (req, res) => {
   }
 };
 
-/**
- * GET Tickets
- * Role-based visibility
- * ADMIN       → all tickets
- * ENGINEER    → reported by OR assigned to
- * TECHNICIAN  → assigned to only
- */
 export const getTickets = async (req, res) => {
   try {
     const { role, id: userId } = req.user;
 
     let whereClause = {};
 
-    // ADMIN → all tickets
     if (role === "ADMIN") {
       whereClause = {};
     }
 
-    // ENGINEER → tickets reported by OR assigned to
     if (role === "ENGINEER") {
       whereClause = {
         OR: [
@@ -53,7 +40,6 @@ export const getTickets = async (req, res) => {
       };
     }
 
-    // TECHNICIAN → only assigned tickets
     if (role === "TECHNICIAN") {
       whereClause = {
         assignedToId: userId
@@ -81,10 +67,6 @@ export const getTickets = async (req, res) => {
   }
 };
 
-/**
- * UPDATE Ticket Status
- * Role: Engineer, Technician
- */
 export const updateTicketStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -114,10 +96,6 @@ export const updateTicketStatus = async (req, res) => {
   }
 };
 
-/**
- * ASSIGN Ticket
- * Role: Admin
- */
 export const assignTicket = async (req, res) => {
   try {
     const { assignedToId } = req.body;
@@ -135,10 +113,6 @@ export const assignTicket = async (req, res) => {
   }
 };
 
-/**
- * ADD Comment
- * Role: Engineer, Technician
- */
 export const addComment = async (req, res) => {
   try {
     const { content } = req.body;

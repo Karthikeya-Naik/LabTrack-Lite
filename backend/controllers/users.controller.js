@@ -1,8 +1,5 @@
 import prisma from "../prisma/client.js";
 
-/**
- * GET all users (ADMIN only)
- */
 export const getUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany({
@@ -22,9 +19,6 @@ export const getUsers = async (req, res) => {
   }
 };
 
-/**
- * TOGGLE active / inactive (ADMIN only)
- */
 export const toggleUserStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -45,9 +39,6 @@ export const toggleUserStatus = async (req, res) => {
   }
 };
 
-/**
- * DELETE user (ADMIN only)
- */
 export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;

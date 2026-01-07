@@ -18,12 +18,10 @@ export default function Chatbot() {
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
 
-  // Auto scroll to bottom
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  // Core function used by BOTH input & quick buttons
   const processQuery = async (text) => {
     if (!text.trim()) return;
 
@@ -60,7 +58,6 @@ export default function Chatbot() {
     }
   };
 
-  // Form submit
   const handleSend = (e) => {
     e.preventDefault();
     processQuery(query);
@@ -123,7 +120,6 @@ export default function Chatbot() {
           </div>
         </div>
 
-        {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 && (
             <div className="text-center py-4">
@@ -132,8 +128,7 @@ export default function Chatbot() {
               </div>
               <h3 className="font-medium text-gray-900 mb-2">Welcome to the Assistant</h3>
               <p className="text-sm text-gray-500 mb-4">Use quick actions below or type your question</p>
-              
-              {/* Quick Help */}
+
               <div className="bg-gray-50 rounded-lg p-4 inline-block max-w-md">
                 <p className="text-sm text-gray-700 font-medium mb-2">Try asking:</p>
                 <ul className="text-sm text-gray-600 space-y-1 text-left">
@@ -177,7 +172,6 @@ export default function Chatbot() {
           <div ref={chatEndRef} />
         </div>
 
-        {/* QUICK ACTION BUTTONS */}
         <div className="border-t border-gray-200 px-4 py-3 bg-gray-50">
           <p className="text-xs text-gray-500 mb-2 font-medium">Quick Actions</p>
           <div className="flex flex-wrap gap-2">
@@ -194,7 +188,6 @@ export default function Chatbot() {
           </div>
         </div>
 
-        {/* Input Area */}
         <form
           onSubmit={handleSend}
           className="border-t border-gray-200 p-4"

@@ -4,7 +4,6 @@ import { getAssets, createAsset } from "../services/asset.service";
 import { useAuth } from "../context/AuthContext";
 import { PlusIcon, QrCodeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-// Status badge styles
 const STATUS_STYLE = {
   ACTIVE: "bg-green-100 text-green-800 border border-green-200",
   UNDER_MAINTENANCE: "bg-amber-100 text-amber-800 border border-amber-200",
@@ -15,14 +14,12 @@ const STATUS_STYLE = {
 export default function Assets() {
   const { user } = useAuth();
 
-  // Data & UI state
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [showForm, setShowForm] = useState(false);
   const LIMIT = 10;
 
-  // Admin create form
   const [form, setForm] = useState({
     name: "",
     assetCode: "",
@@ -31,7 +28,6 @@ export default function Assets() {
     qrCode: "",
   });
 
-  // Fetch assets
   useEffect(() => {
   fetchAssets();
 }, [page]);
@@ -70,7 +66,6 @@ export default function Assets() {
 
   return (
     <Layout>
-      {/* Header with Add Button */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Assets</h1>
@@ -89,7 +84,6 @@ export default function Assets() {
         )}
       </div>
 
-      {/* Add Asset Modal/Form */}
       {showForm && user?.role === "ADMIN" && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-md">
@@ -199,7 +193,6 @@ export default function Assets() {
         </div>
       )}
 
-      {/* Assets Table */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">

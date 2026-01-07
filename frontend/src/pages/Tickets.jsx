@@ -27,13 +27,10 @@ export default function Tickets() {
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Admin assignment state
   const [selectedAssignee, setSelectedAssignee] = useState({});
 
-  // Comment input per ticket
   const [commentText, setCommentText] = useState({});
 
-  // Engineer create ticket form
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -47,8 +44,6 @@ export default function Tickets() {
       fetchUsers();
     }
   }, []);
-
-  /* ---------------- FETCH DATA ---------------- */
 
   const fetchTickets = async () => {
     try {
@@ -83,8 +78,6 @@ export default function Tickets() {
     }
   };
 
-  /* ---------------- ENGINEER ---------------- */
-
   const handleCreateTicket = async (e) => {
     e.preventDefault();
     try {
@@ -96,9 +89,7 @@ export default function Tickets() {
       console.error(err);
     }
   };
-
-  /* ---------------- ADMIN ---------------- */
-
+  
   const handleAssign = async (ticketId) => {
     const assigneeId = selectedAssignee[ticketId];
     if (!assigneeId) return;
@@ -117,8 +108,6 @@ export default function Tickets() {
       console.error(err);
     }
   };
-
-  /* ---------------- ENGINEER / TECHNICIAN ---------------- */
 
   const handleStatusChange = async (id, status) => {
     try {

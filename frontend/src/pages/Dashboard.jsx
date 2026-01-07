@@ -27,15 +27,15 @@ import {
 } from "@heroicons/react/24/outline";
 
 const COLORS = {
-  OPEN: "#f59e0b", // Amber
-  IN_PROGRESS: "#3b82f6", // Blue
-  RESOLVED: "#10b981", // Emerald
-  CLOSED: "#6b7280", // Gray
-  CANCELLED: "#ef4444", // Red
-  ACTIVE: "#10b981", // Emerald
-  UNDER_MAINTENANCE: "#f97316", // Orange
-  DAMAGED: "#ef4444", // Red
-  DECOMMISSIONED: "#374151", // Gray-700
+  OPEN: "#f59e0b",
+  IN_PROGRESS: "#3b82f6",
+  RESOLVED: "#10b981",
+  CLOSED: "#6b7280",
+  CANCELLED: "#ef4444",
+  ACTIVE: "#10b981",
+  UNDER_MAINTENANCE: "#f97316", 
+  DAMAGED: "#ef4444",
+  DECOMMISSIONED: "#374151",
 };
 export default function Dashboard() {
   const { user } = useAuth();
@@ -83,7 +83,6 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      {/* Header with Welcome */}
       <div className="mb-8">
         <div className="flex justify-between items-start">
           <div>
@@ -100,7 +99,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <StatCard
           title="Total Assets"
@@ -128,9 +126,7 @@ export default function Dashboard() {
         
       </div>
 
-      {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        {/* Tickets by Status Chart */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -190,7 +186,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Assets by Status Chart */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="flex items-center justify-between mb-6">
             <div>

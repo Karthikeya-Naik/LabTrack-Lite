@@ -10,7 +10,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <Routes>
-      {/* Public Route */}
       <Route path="/" element={<Login />} />
       <Route
         path="/users"
@@ -20,7 +19,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-      {/* Protected Routes */}
       <Route
         path="/dashboard"
         element={

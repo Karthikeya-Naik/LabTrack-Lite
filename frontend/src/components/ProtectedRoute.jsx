@@ -5,7 +5,6 @@ import { ShieldExclamationIcon, LockClosedIcon } from "@heroicons/react/24/outli
 export default function ProtectedRoute({ children, allowedRoles }) {
   const { isAuthenticated, user, loading } = useAuth();
 
-  // Loading state with skeleton
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-100">
@@ -18,12 +17,10 @@ export default function ProtectedRoute({ children, allowedRoles }) {
     );
   }
 
-  // Not logged in - redirect to login
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }
 
-  // Role-based restriction
   if (allowedRoles && !allowedRoles.includes(user.role)) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center px-4">

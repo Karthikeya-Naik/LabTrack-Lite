@@ -7,7 +7,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load auth data from localStorage on refresh
   useEffect(() => {
     const storedUser = localStorage.getItem("labtrack_user");
     const storedToken = localStorage.getItem("labtrack_token");
@@ -19,7 +18,6 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  // Login handler
   const login = (userData, jwtToken) => {
     setUser(userData);
     setToken(jwtToken);
@@ -28,7 +26,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("labtrack_token", jwtToken);
   };
 
-  // Logout handler
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -53,5 +50,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Custom hook
 export const useAuth = () => useContext(AuthContext);

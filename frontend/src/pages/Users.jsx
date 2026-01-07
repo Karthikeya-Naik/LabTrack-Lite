@@ -7,7 +7,6 @@ import { PlusIcon, TrashIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 export default function Users() {
   const { user } = useAuth();
 
-  // Create user modal state
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [form, setForm] = useState({
     fullName: "",
@@ -16,11 +15,9 @@ export default function Users() {
     role: "ENGINEER"
   });
 
-  // Users list
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load users (ADMIN only)
   useEffect(() => {
     if (user?.role === "ADMIN") {
       loadUsers();
@@ -39,7 +36,6 @@ export default function Users() {
     }
   };
 
-  // Create user
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -58,7 +54,6 @@ export default function Users() {
     }
   };
 
-  // Delete user
   const handleDelete = async (id, userName) => {
     if (!window.confirm(`Are you sure you want to delete "${userName}"? This action cannot be undone.`)) return;
     try {
@@ -78,7 +73,6 @@ export default function Users() {
     }
   };
 
-  // Non-admin guard
   if (user?.role !== "ADMIN") {
     return (
       <Layout>
@@ -101,7 +95,6 @@ export default function Users() {
 
   return (
     <Layout>
-      {/* Header with Create Button */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
@@ -118,7 +111,6 @@ export default function Users() {
         </button>
       </div>
 
-      {/* USERS TABLE */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mb-8">
         <div className="overflow-x-auto">
           <table className="w-full">
